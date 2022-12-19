@@ -13,5 +13,5 @@ urlpatterns = [
     # users
     path("users/login/", views.user_login, name="users.login"),
     path("users/register/", views.user_register, name="users.register"),
-
+    path("users/logout/", views.user_logout, name="users.logout"),
 ]
