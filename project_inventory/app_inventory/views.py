@@ -24,6 +24,7 @@ def item_delete(request, id):
     data.delete()
     return redirect("items.index")
 
+
 def item_create(request):
     form = ItemCreateForm()
     context = {"form": form}     # could not understand this code
