@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .forms import ItemCreateForm, UserLoginForm, UserRegisterForm
 from .models import Item, AppUser
 from datetime import datetime
@@ -9,11 +9,20 @@ def item_index(request):
     context = {"item_list": item_list}
     return render(request, "items/index.html", context)
 
-def item_show(request):
-    return render(request, "items/show.html")
+def item_show(request, id):
+    data = Item.objects.get(id=id)
+    context = {"data": data}
+    return render(request, "items/show.html", context)
 
-def item_edit(request):
-    return render(request, "items/edit.htsml")
+def item_edit(request, id):
+    data = Item.objects.get(id=id)
+    context = {"data": data}
+    return render(request, "items/edit.html", context)
+
+def item_delete(request, id):
+    data = Item.objects.get(id=id)
+    data.delete()
+    return redirect("items.index")
 
 def item_create(request):
     form = ItemCreateForm()

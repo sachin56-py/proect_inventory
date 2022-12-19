@@ -38,6 +38,9 @@ Item | INDEX
                         <td>{{val.quantity}}</td>
                         <td>{{val.total}}</td>
                         <td>{{val.added_at}}</td>
+                        <td><a href="{% url 'items.show' val.id %}">Show</a></td>
+                        <td><a href="{% url 'items.edit' val.id %}">Edit</a></td>
+                        <td><a href="{% url 'items.delete' val.id %}">Delete</a></td>
                     </tr>
                     {% endfor %}
                 </tbody>
