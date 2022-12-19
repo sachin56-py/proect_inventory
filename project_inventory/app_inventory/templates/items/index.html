@@ -7,5 +7,42 @@ Item | INDEX
 {% block body_content %}
 <div class="container">
     <h1>Item List | INVENTORY</h1>
+    <hr>
+    <div class="card">
+        <div class="card-header">
+            <h3>Item List</h3>
+        </div>
+        <div class="card-body">
+            <table class="table table-success table-striped">
+                <thread>
+                    <tr>
+                        <td>S.N.</td>
+                        <td>Title</td>
+                        <td>Particular</td>
+                        <td>LF</td>
+                        <td>Price</td>
+                        <td>Quantity</td>
+                        <td>Total</td>
+                        <td>Added_at</td>
+                        <td>Action</td>
+                    </tr>
+                </thread>
+                <tbody>
+                    {% for val in item_list %}
+                    <tr>
+                        <td>{{forloop.counter}}</td>
+                        <td>{{val.title}}</td>
+                        <td>{{val.particular}}</td>
+                        <td>{{val.LF}}</td>
+                        <td>{{val.price}}</td>
+                        <td>{{val.quantity}}</td>
+                        <td>{{val.total}}</td>
+                        <td>{{val.added_at}}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+              </table>
+        </div>
+    </div>
 </div>
 {% endblock %}

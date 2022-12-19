@@ -5,7 +5,9 @@ from datetime import datetime
 
 # Create your views here.
 def item_index(request):
-    return render(request, "items/index.html")
+    item_list = Item.objects.all()
+    context = {"item_list": item_list}
+    return render(request, "items/index.html", context)
 
 def item_show(request):
     return render(request, "items/show.html")
