@@ -15,6 +15,11 @@
         <h1>Register | INVENTORY</h1>
         <hr> 
         <div class="card">
+          {% if msg %}
+          <div class="alert alert-success"  role="alert" >
+              {{msg}}
+          </div>
+          {% endif %}
             <div class="card-header">
                 <h4>Register</h4>
             </div>

@@ -28,6 +28,7 @@ def item_create(request):
         item.added_at = datetime.now()
         item.user = user 
         item.save()
+        context.setdefault("msg", "Item created successfully!!")
     return render(request, "items/create.html", context)
 
 def user_login(request):
@@ -46,4 +47,6 @@ def user_register(request):
         user.contact = request.POST["contact"]
         user.password = request.POST["password"]
         user.save()
+        context.setdefault("msg", "Account registered successfully!!")
+
     return render(request, "users/register.html", context)
