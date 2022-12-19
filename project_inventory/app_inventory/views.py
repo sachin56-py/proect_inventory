@@ -19,6 +19,22 @@ def item_edit(request, id):
     context = {"data": data}
     return render(request, "items/edit.html", context)
 
+def item_update(request):
+    if request.method == "POST":
+        item = Item.objects.get(id=request.POST.get("id")) # pretty beautful code
+        user = AppUser.objects.get(id=1)
+        item.title = request.POST.get("title")
+        item.particular = request.POST.get("particular")
+        item.lf = request.POST.get("lf")
+        item.price = request.POST.get("price")
+        item.quantity = request.POST.get("quantity")
+        item.total = request.POST.get("total")
+        item.added_at = datetime.now()
+        item.user = user 
+        item.save()
+    return redirect("items.index")
+
+
 def item_delete(request, id):
     data = Item.objects.get(id=id)
     data.delete()
