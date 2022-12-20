@@ -1,7 +1,13 @@
 {% extends "layouts/base.html" %}
 
+{% load static %}
+
 {% block title %}
 Item | EDIT
+{% endblock %}
+
+{% block custom_css %}
+<link rel="stylesheet" href="{% static 'css/style.css' %}">
 {% endblock %}
 
 {% block body_content %}
