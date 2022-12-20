@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from .forms import ItemCreateForm, UserLoginForm, UserRegisterForm
 from .models import Item, AppUser
 from datetime import datetime
+from django.core.mail import send_mail
 
 # Create your views here.
 def item_index(request):
@@ -105,5 +106,11 @@ def user_register(request):
         user.password = request.POST["password"]
         user.save()
         context.setdefault("msg", "Account registered successfully!!")
+        send_mail(
+            "Account creation!!", # subject
+            "Hello "+ user.full_name+"!! Your account has been created successfully.", # message
+            "sachinmnm11@gmail.com", # sender
+            [user.email] # receiver       
+        )
 
     return render(request, "users/register.html", context)
