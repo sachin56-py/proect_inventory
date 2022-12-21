@@ -4,6 +4,21 @@ from .models import Item, AppUser
 from datetime import datetime
 from django.core.mail import send_mail
 
+# api packages
+from rest_framework import status
+from rest_framework.response import Response
+from rest_framework import serializers
+from rest_framework.views import APIView
+from .serializers import ItemSerializer, AppUserSerializer
+
+# creating your views here
+# API via class based view
+class ItemApiView(APIView):
+    def get(self, request):
+        item_list = Item.objects.all()
+        serializer = ItemSerializer(item_list, many=True)
+        return Response(serializer.data, status.HTTP_200_OK)
+
 # Create your views here.
 def item_index(request):
     if not request.session.has_key("session_email"):
@@ -92,7 +107,6 @@ def user_logout(request):
         return redirect("users.login")
     del request.session["session_email"]
     return redirect("users.login")
-
 
 def user_register(request):
     form = UserRegisterForm()
