@@ -19,6 +19,70 @@ class ItemApiView(APIView):
         serializer = ItemSerializer(item_list, many=True)
         return Response(serializer.data, status.HTTP_200_OK)
 
+    def post(self, request):
+        # one method
+        data_post = {
+            "title": request.POST.get("title"),
+            "particular": request.POST.get("particular"),
+            "lf": request.POST.get("lf"),
+            "price": request.POST.get("price"), 
+            "quantity": request.POST.get("quantity"), 
+            "total": request.POST.get("total"),
+            "user": 2,
+            "added_at": datetime.now()
+        }
+        # another method
+        # data_post = request.POST
+        serializer = ItemSerializer(data=data_post)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        else:
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+class ItemIdApiView(APIView):
+    def get_object(self, id):
+        try:
+            data=Item.objects.get(id=id)
+            return data
+        except Item.DoesNotExist:
+            return None
+
+    # data
+    def get(self, request, id):
+        item_instance = self.get_object(id)
+
+        if not item_instance:
+            return Response({"error": "Data Not Found"}, status=status.HTTP_404_NOT_FOUND)
+
+        serializer = ItemSerializer(item_instance)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+    def push(self, request, id):
+        item_instance = self.get_object(id)
+
+        if not item_instance:
+            return Response({"error": "Data Not Found"}, status=status.HTTP_404_NOT_FOUND)
+        
+        data_post = {
+            "title": request.POST.get("title"),
+            "particular": request.POST.get("particular"),
+            "lf": request.POST.get("lf"),
+            "price": request.POST.get("price"), 
+            "quantity": request.POST.get("quantity"), 
+            "total": request.POST.get("total"),
+            "user": 2,
+            "added_at": datetime.now()
+        }
+        serializer = ItemSerializer(item_instance, data = data_post, partial=True)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        else:
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+
+
 # Create your views here.
 def item_index(request):
     if not request.session.has_key("session_email"):
@@ -69,10 +133,10 @@ def item_create(request):
     if not request.session.has_key("session_email"):
         return redirect("users.login")
     form = ItemCreateForm()
-    context = {"form": form}     # could not understand this code
+    context = {"form": form}     
     if request.method == "POST":
         item = Item()
-        user = AppUser.objects.get(id=1)
+        user = AppUser.objects.get(id=1)    # could not understand this code why 1?
         item.title = request.POST.get("title")
         item.particular = request.POST.get("particular")
         item.lf = request.POST.get("lf")

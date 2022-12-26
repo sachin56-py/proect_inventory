@@ -1,6 +1,6 @@
 from django.urls import path
 from . import views
-from .views import ItemApiView
+from .views import ItemApiView, ItemIdApiView
 
 urlpatterns = [
     # items
@@ -18,4 +18,6 @@ urlpatterns = [
 
     # API
     path("api/items/", ItemApiView.as_view(), name="api.items.list"),
+    path("api/items/<int:id>/", ItemIdApiView.as_view()),
+
 ]
