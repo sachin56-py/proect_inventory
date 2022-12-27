@@ -41,6 +41,8 @@ class ItemApiView(APIView):
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 class ItemIdApiView(APIView):
+
+    # to get model object by id
     def get_object(self, id):
         try:
             data=Item.objects.get(id=id)
@@ -48,7 +50,7 @@ class ItemIdApiView(APIView):
         except Item.DoesNotExist:
             return None
 
-    # data
+    # data edit and show via API by id
     def get(self, request, id):
         item_instance = self.get_object(id)
 
@@ -58,30 +60,37 @@ class ItemIdApiView(APIView):
         serializer = ItemSerializer(item_instance)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
-    def push(self, request, id):
+    # data update from API
+    def put(self, request, id):
         item_instance = self.get_object(id)
 
         if not item_instance:
             return Response({"error": "Data Not Found"}, status=status.HTTP_404_NOT_FOUND)
         
-        data_post = {
+        data_put = {
             "title": request.POST.get("title"),
             "particular": request.POST.get("particular"),
             "lf": request.POST.get("lf"),
             "price": request.POST.get("price"), 
             "quantity": request.POST.get("quantity"), 
             "total": request.POST.get("total"),
-            "user": 2,
+            "user": 1,
             "added_at": datetime.now()
         }
-        serializer = ItemSerializer(item_instance, data = data_post, partial=True)
+        serializer = ItemSerializer(item_instance, data = data_put, partial=True)
         if serializer.is_valid():
             serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
+            return Response(serializer.data, status=status.HTTP_200_OK)
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-    
 
+    def delete(self, request, id):
+        item_instance = self.get_object(id)
+        if not item_instance:
+            return Response({"error": "Data Not Found"}, status=status.HTTP_404_NOT_FOUND)
+
+        item_instance.delete()  # built in function to delete data items
+        return Response({"msg": "Item Deleted Successfully!!"}, status=status.HTTP_200_OK)
 
 # Create your views here.
 def item_index(request):
