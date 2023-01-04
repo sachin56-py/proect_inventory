@@ -8,29 +8,79 @@ Item | CREATE
 <a class="nav-link active" aria-current="page" href="{% url 'users.logout' %}">Logout</a>     
 {% endblock %}
 
+<style>
+    .centerss {
+        margin-left: 450px;
+        width: 500px;
+        height: 400px;
+        text-align: center;
+        border: 1px solid black;
+        box-shadow: 10px 10px 5px grey;
+    } 
+</style>
+
 {% block body_content %}
 <div class="container">
     <h1>Item Create | INVENTORY</h1>
     <hr> 
-    <a href="{% url 'items.index' %}" class="btn btn-primary" mb-2>BACK</a>
-    {% if msg %}
-    <div class="alert alert-success"  role="alert" >
-        {{msg}}
-    </div>
-    {% endif %}
-    <div class="card">
-        <div class="card-header">
-            <h4>Item Details</h4>
-        </div>
-        <div class="card-body">
-            <form action="{% url 'items.create' %}" method="POST">
-                {% csrf_token %}
-                
-                {{ form.as_p }}
-                <input type="submit" class="btn btn-primary" value="ADD ITEM">
-            </form>
-        </div>
 
+
+    <div class="main_center">
+        <div class="centerss">
+            <a href="{% url 'items.index' %}" class="btn btn-primary" mb-2>BACK</a>
+            {% if msg %}
+            <div class="alert alert-success"  role="alert" >
+                {{msg}}
+            </div>
+            {% endif %}
+            <div class="card">
+                <div class="card-header">
+                    <h4>Item Details</h4>
+                </div>
+                <div class="card-body">
+                    <form action="{% url 'items.create' %}" method="POST">
+                        {% csrf_token %}
+                        
+                        {{ form.as_p }}
+                        <input type="submit" class="btn btn-primary" value="ADD ITEM">
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 {% endblock %}
+
+
+<style>
+    .centerss {
+        margin-left: 450px;
+        width: 500px;
+        height: 400px;
+        text-align: center;
+        border: 1px solid black;
+        box-shadow: 10px 10px 5px grey;
+    } 
+</style>
+<hr> 
+<div class="main_center">
+    <div class="centerss">
+        <div class="card-header green">
+            <h4>Sign Up</h4>
+        </div>
+        <hr>
+        {% if msg %}
+        <div class="alert alert-success" role="alert">
+            {{ msg }}
+        </div>
+        {% endif %}
+        <div class="card-body">
+            <form action="{% url 'users.register' %}" method="POST">
+            {% csrf_token %}
+            
+            {{ form.as_p }}
+            <input type="submit" class="btn btn-primary" value="SignUp">
+            </form>
+        </div>
+    </div>
+</div>
