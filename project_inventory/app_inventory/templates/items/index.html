@@ -6,15 +6,30 @@
 Item | INDEX
 {% endblock %}
 
+
+
 {% block custom_css %}
 <link rel="stylesheet" href="{% static 'css/style.css' %}">
+{% endblock %}
+
+
+{% block search %}
+<form class="d-flex">
+    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+    <button class="btn button" type="submit">Search</button>
+</form>
+{% endblock %}
+
+
+{% block logged %}
+<a class="nav-link active" aria-current="page" href="{% url 'users.logout' %}">Logout</a>     
 {% endblock %}
 
 {% block body_content %}
 <div class="container">
     <h1>Item List | INVENTORY</h1>
     <hr>
-    <a href="{% url 'items.create' %}" class="btn btn-primary" mb-2>ADD ITEM</a>
+    <a href="{% url 'items.create' %}" class="btn btn-outline-success" mb-2>ADD ITEM</a>
     <div class="card">
         <div class="card-header">
             <h3>Item List</h3>

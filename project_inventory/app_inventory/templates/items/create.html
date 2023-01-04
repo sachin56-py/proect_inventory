@@ -4,6 +4,10 @@
 Item | CREATE
 {% endblock %}
 
+{% block logged %}
+<a class="nav-link active" aria-current="page" href="{% url 'users.logout' %}">Logout</a>     
+{% endblock %}
+
 {% block body_content %}
 <div class="container">
     <h1>Item Create | INVENTORY</h1>

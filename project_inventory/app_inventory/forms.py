@@ -18,3 +18,6 @@ class UserLoginForm(forms.ModelForm):
         fields = ["email", "password"]
         model = AppUser
 
+
+class SearchForm(forms.Form):
+    query = forms.CharField()

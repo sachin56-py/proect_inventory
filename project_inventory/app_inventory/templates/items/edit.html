@@ -10,6 +10,10 @@ Item | EDIT
 <link rel="stylesheet" href="{% static 'css/style.css' %}">
 {% endblock %}
 
+{% block logged %}
+<a class="nav-link active" aria-current="page" href="{% url 'users.logout' %}">Logout</a>     
+{% endblock %}
+
 {% block body_content %}
 <div class="container">
     <h1>Item Edit | INVENTORY</h1>

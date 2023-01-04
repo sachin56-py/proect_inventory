@@ -167,6 +167,7 @@ def user_login(request):
         user = AppUser.objects.get(email=req_email)
         if user.email==req_email and user.password==req_password:
             request.session["session_email"] = user.email
+            
             # this code can also be written as
             # 2) -> request.session.setdefault("session_email", user.email)
             # 3) -> request.session.update({"session_email": user.email})
@@ -182,6 +183,7 @@ def user_logout(request):
     return redirect("users.login")
 
 def user_register(request):
+
     form = UserRegisterForm()
     context = {"form": form}
     if request.method == "POST":

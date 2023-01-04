@@ -1,14 +1,31 @@
 {% extends "layouts/base.html" %}
 
+{% load static %}
+
 {% block title %}
 Item | SHOW
+{% endblock %}
+
+{% block custom_css %}
+<link rel="stylesheet" href="{% static 'css/style.css' %}">
+{% endblock %}
+
+{% block search %}
+<form class="d-flex">
+    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+    <button class="btn btn-outline-success" type="submit">Search</button>
+</form>
+{% endblock %}
+
+{% block logged %}
+<a class="nav-link active" aria-current="page" href="{% url 'users.logout' %}">Logout</a>     
 {% endblock %}
 
 {% block body_content %}
 <div class="container">
     <h1>Item Show | INVENTORY</h1>
     <hr>
-    <a href="{% url 'task_list' %}" class="btn btn-primary" mb-2>BACK</a>
+    <a href="{% url 'items.index' %}" class="btn btn-primary" mb-2>BACK</a>
     <div class="card">
         <div class="card-header">
             <h3>{{data.title}}</h3>
